@@ -3,6 +3,19 @@ name = "futures_future"
 version = "0.1.0"
 authors = ["Tinco Andringa <mail@tinco.nl>"]
 edition = "2018"
+license = "MIT"
+readme = "README.md"
+keywords = ["async", "futures"]
+categories = ["asynchronous"]
+repository = "https://github.com/tinco/futures_future"
+homepage = "https://github.com/tinco/futures_future"
+documentation = "https://docs.rs/tinco/futures_future"
+description = """
+The Rust crate that converts the old style futures crate `futures::Future` into the new
+nightly async/await style `std::future::Future` so you can easily try out the new
+syntax.
+"""
+
 
 [dependencies]
 futures = "0.1.24"
