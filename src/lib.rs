@@ -4,7 +4,7 @@
 
 use futures::*;
 use std::pin::Pin;
-use std::task::LocalWaker;
+use std::task;
 
 // Struct that has a reference to an old style future and implements the new style future
 pub struct FuturesFuture<'a, F: 'a> {
@@ -15,13 +15,14 @@ impl<'a, F: Future<Item=T, Error=E>, T, E> std::future::Future for FuturesFuture
     type Output = Result<T, E>;
 
     #[inline]
-    fn poll(self: Pin<&mut Self>, _lw: &LocalWaker) -> std::task::Poll<Result<T,E>> {
+    fn poll(self: Pin<&mut Self>, _lw: &task::LocalWaker) -> task::Poll<Result<T,E>> {
+        // TODO we should awake the localwaker if we're not ready.
         match Pin::get_mut(self).future.poll() {
             Ok(result) => match result {
-                Async::Ready(item) => std::task::Poll::Ready(Ok(item)),
-                Async::NotReady   => std::task::Poll::Pending,
+                Async::Ready(item) => task::Poll::Ready(Ok(item)),
+                Async::NotReady   => task::Poll::Pending,
             },
-            Err(err) => std::task::Poll::Ready(Err(err)),
+            Err(err) => task::Poll::Ready(Err(err)),
         }
     }
 }
