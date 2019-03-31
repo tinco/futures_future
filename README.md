@@ -1,3 +1,5 @@
+# NOTICE: Please use https://github.com/de-vri-es/back-to-the-future instead as it seems to actually work
+
 # WARNING: DOES NOT ACTUALLY WORK I THINK
 This requires some kind of task system, which I can't figure out. It might
 sporadically work, but not consistently because there's no implementation for
